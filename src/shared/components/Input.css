@@ -1,0 +1,6 @@
+.input-failed {
+    border-color: red;
+    background: #ffd1d1;
+    box-shadow: 0px 5px 8px rgba(255, 69, 69, 0.786),
+        0px 3px 8px rgba(255, 96, 48, 0.852);
+}

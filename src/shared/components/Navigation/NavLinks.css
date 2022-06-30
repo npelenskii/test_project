@@ -1,0 +1,93 @@
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px 0px;
+}
+
+.link {
+    background: #ffffff;
+
+    box-shadow: 0px 5px 10px rgba(255, 174, 0, 0.26),
+        0px 5px 10px rgba(255, 174, 0, 0.29);
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+
+    text-align: center;
+
+    background: linear-gradient(92.84deg, #ffb800 -47.72%, #ff8a00 136.81%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.nav-links a {
+    width: 100px;
+    height: 40px;
+    text-decoration: none;
+
+    background: #ffffff;
+    /* Shadow/1 */
+
+    box-shadow: 0px 5px 10px rgba(255, 174, 0, 0.26),
+        0px 5px 10px rgba(255, 174, 0, 0.29);
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    /* identical to box height, or 18px */
+
+    text-align: center;
+
+    /* yellow button */
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    color: #ffb800;
+}
+
+.nav-links a:hover,
+.nav-links a:active,
+.nav-links a.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    /* identical to box height, or 18px */
+
+    text-align: center;
+
+    background: linear-gradient(92.84deg, #ffb800 -47.72%, #ff8a00 136.81%);
+    /* Shadow/1 */
+
+    box-shadow: 0px 5px 10px rgba(255, 174, 0, 0.26),
+        0px 5px 10px rgba(255, 174, 0, 0.29);
+    border-radius: 8px;
+    color: #ffffff;
+}
