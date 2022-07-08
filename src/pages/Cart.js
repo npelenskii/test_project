@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoadScript } from "@react-google-maps/api";
 import { TailSpin } from "react-loader-spinner";
 
 import { useHttpClient } from "../shared/hooks/http-hook";
 import Input from "../shared/components/Input";
 import Button from "../shared/components/Button";
+import Map from "../shared/components/Map";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./Shared.css";
@@ -34,6 +36,9 @@ const Cart = (props) => {
             isValid: false,
         },
     ]);
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    });
 
     const [reset, setReset] = useState(false);
     const [orderDone, setOrderDone] = useState();
@@ -44,7 +49,7 @@ const Cart = (props) => {
     }, [reset]);
 
     const handleFormSubmit = async (event) => {
-        event.preventDefault(event.target.phone.value);
+        event.preventDefault();
         let productsList = [];
         await props.products.forEach((product) => {
             for (let i = 1; i <= product.amount; i++) {
@@ -67,13 +72,35 @@ const Cart = (props) => {
                     "Content-Type": "application/json",
                 }
             );
-            console.log(responseData);
         } catch (err) {
             console.log(err);
         }
         setReset(true);
         props.makeOrder();
         setOrderDone(responseData);
+    };
+
+    const handleClickOnMap = async (coordinates) => {
+        let responseData;
+        try {
+            responseData = await sendRequest(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinates.lat},${coordinates.lng}&language=en&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+            );
+        } catch (err) {
+            console.log(err);
+        }
+        setInputs((prevInputs) =>
+            prevInputs.map((item) => {
+                if (item.name === "address") {
+                    item = {
+                        ...item,
+                        value: responseData.results[0].formatted_address,
+                        isValid: true,
+                    };
+                }
+                return item;
+            })
+        );
     };
 
     let currentPrice = 0;
@@ -194,7 +221,26 @@ const Cart = (props) => {
                             id="address"
                             send={handleInputChange}
                             reset={reset}
+                            value={inputs[3].value}
                         />
+                        {!isLoaded ? (
+                            <TailSpin
+                                height="100"
+                                width="100"
+                                color="orange"
+                                ariaLabel="loading"
+                            />
+                        ) : (
+                            <Map
+                                mapClick={handleClickOnMap}
+                                shop={
+                                    props.currentShop &&
+                                    props.products.length > 0
+                                        ? props.currentShop
+                                        : null
+                                }
+                            />
+                        )}
                         <Button
                             type="submit"
                             value="Submit order"

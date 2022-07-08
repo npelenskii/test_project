@@ -22,7 +22,6 @@ function App() {
 
     useEffect(() => {
         const fetchItems = async () => {
-            console.log(`${process.env.REACT_APP_BACKEND_URL}api/product/shop`);
             const responseData = await sendRequest(
                 `${process.env.REACT_APP_BACKEND_URL}api/product/shop`
             );
@@ -139,7 +138,6 @@ function App() {
             cartList = [];
 
         products.cartItems.forEach((product) => {
-            console.log(order.products.find((item) => item.id === product.id));
             if (
                 order.products.filter((item) => item.id === product.id).length >
                 0
